@@ -7,7 +7,7 @@ function QueryProductFeatures() {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/names')
+        fetch('https://crm-system-8gxs.onrender.com/api/names')
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status}`);
