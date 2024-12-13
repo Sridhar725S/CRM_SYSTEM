@@ -9,7 +9,7 @@ const QueryCompanyOutlets = () => {
 
     useEffect(() => {
         // Fetch cities on component mount
-        axios.get('http://localhost:5000/api/outlets/cities')
+        axios.get('https://crm-system-8gxs.onrender.com/api/outlets/cities')
             .then(response => setCities(response.data))
             .catch(error => console.error('Error fetching cities:', error));
     }, []);
@@ -17,7 +17,7 @@ const QueryCompanyOutlets = () => {
     const handleQuery = (e) => {
         e.preventDefault();
 
-        axios.post('http://localhost:5000/api/outlets/query', { city, outlet_type: outletType })
+        axios.post('https://crm-system-8gxs.onrender.com/api/outlets/query', { city, outlet_type: outletType })
             .then(response => setOutlets(response.data))
             .catch(error => console.error('Error querying outlets:', error));
     };
