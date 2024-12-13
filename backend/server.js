@@ -188,7 +188,7 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 
 // For any other routes, send the index.html from the build folder
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html')); 
 });
 
 // Start the server
