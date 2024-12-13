@@ -47,7 +47,7 @@ const ComplaintForm = () => {
         }
     
         try {
-            const response = await axios.post('https://crm-system-8gxs.onrender.comapi/complaints_form', formData);
+            const response = await axios.post('https://crm-system-8gxs.onrender.com/api/complaints_form', formData);
     
             if (response.data.success) {
                 setComplaintNumber(response.data.complaintNumber);
