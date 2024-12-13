@@ -1,0 +1,185 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    background-image: url('a.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  
+  header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2.5em;
+  }
+  
+  nav {
+    background-color: #333;
+    text-align: center;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  nav ul li:last-child {
+    margin-right: 0;
+  }
+  
+  nav ul li a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  nav ul li a:hover {
+    background-color: #555;
+  }
+  
+  /* Footer styles */
+ /* Footer Styles */
+footer {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 50px 0;
+    font-family: 'Arial', sans-serif;
+    margin-top: 50px;
+  }
+  
+  .footerLeft, .footerRight {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .footerMenu {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .fMenuTitle {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #f39c12;
+  }
+  
+  .fList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .fListItem {
+    margin: 10px 0;
+  }
+  
+  .fListItem a {
+    color: #ecf0f1;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .fListItem a:hover {
+    color: #f39c12;
+  }
+  
+  .footerRightMenu {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  .fMail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .fInput {
+    padding: 10px;
+    width: 70%;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  
+  .fButton {
+    padding: 10px 20px;
+    background-color: #f39c12;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .fButton:hover {
+    background-color: #e67e22;
+  }
+  
+  .fIcons {
+    display: flex;
+    justify-content: space-between;
+    max-width: 200px;
+  }
+  
+  .fIcon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s ease;
+  }
+  
+  .fIcon:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .footerLeft, .footerRight {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .footerMenu {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+  
+    .footerRightMenu {
+      text-align: center;
+    }
+  
+    .fIcons {
+      justify-content: center;
+    }
+  
+    .fInput {
+      width: 60%;
+    }
+  
+    .fButton {
+      width: 30%;
+    }
+  }
+  
