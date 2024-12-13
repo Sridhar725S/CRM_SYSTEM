@@ -29,7 +29,7 @@ function QueryProductFeatures() {
             setError('Please select a product');
             return;
         }
-        fetch(`http://localhost:5000/api/details/${selectedName}`)
+        fetch(`https://crm-system-8gxs.onrender.com/api/details/${selectedName}`)
             .then(response => response.json())
             .then(data => setProductDetails(data))
             .catch(err => setError('Failed to fetch product details'));
