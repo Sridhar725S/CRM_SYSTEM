@@ -1,0 +1,76 @@
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+h1 {
+   
+    text-align: center;
+    padding: 20px 0;
+    margin: 0;
+    font-size: 2.5em;
+    color:white;
+}
+form {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+label {
+    margin-top: 15px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.complaint-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.complaint-table th, .complaint-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.complaint-table th {
+    background-color: #f2f2f2;
+}
+
+.complaint-table td {
+    background-color: #fff;
+}
+
+.complaint-table th:first-child, .complaint-table td:first-child {
+    border-left: none;
+}
+
+.complaint-table th:last-child, .complaint-table td:last-child {
+    border-right: none;
+}
