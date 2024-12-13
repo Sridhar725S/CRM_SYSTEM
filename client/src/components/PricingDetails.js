@@ -11,7 +11,7 @@ const PricingDetails = () => {
     const [error, setError] = useState('');
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/products')
+        axios.get('https://crm-system-8gxs.onrender.com/api/products')
             .then(response => {
                 setProducts(response.data);
             })
@@ -24,7 +24,7 @@ const PricingDetails = () => {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5000/api/price', {
+            const response = await axios.post('https://crm-system-8gxs.onrender.com/api/price', {
                 productName: selectedProduct,
                 serviceLocation,
                 batteryRequired,
