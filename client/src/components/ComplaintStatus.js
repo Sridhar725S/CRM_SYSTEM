@@ -11,7 +11,7 @@ const ComplaintStatus = () => {
         setError('');
         
         try {
-            const response = await axios.post('http://localhost:5000/api/complaints_status', { complaintNumber });
+            const response = await axios.post('https://crm-system-8gxs.onrender.com/api/complaints_status', { complaintNumber });
             setComplaintData(response.data.complaint);
         } catch (err) {
             if (err.response && err.response.data) {
