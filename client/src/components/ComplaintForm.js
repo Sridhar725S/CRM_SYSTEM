@@ -21,7 +21,7 @@ const ComplaintForm = () => {
         // Fetch product data from the backend
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/products');
+                const response = await axios.get('https://crm-system-8gxs.onrender.com/api/products');
                 setProducts(response.data);  // Update state with the product data
             } catch (error) {
                 console.error('Error fetching products:', error);
@@ -46,7 +46,7 @@ const ComplaintForm = () => {
         }
     
         try {
-            const response = await axios.post('http://localhost:5000/api/complaints_form', formData);
+            const response = await axios.post('https://crm-system-8gxs.onrender.comapi/complaints_form', formData);
     
             if (response.data.success) {
                 setComplaintNumber(response.data.complaintNumber);
