@@ -18,8 +18,9 @@ const ComplaintForm = () => {
     const [expectedSolutionDate, setExpectedSolutionDate] = useState('');
     const [products, setProducts] = useState([]);  // State to store product list
     const [askEmail, setAskEmail] = useState(false);
-    const [userEmail, setUserEmail] = useState('');
-    const [emailSent, setEmailSent] = useState(false);
+    const [sendEmail, setSendEmail] = useState(null); // null = not asked yet
+    const [email, setEmail] = useState('');
+
 
 
     useEffect(() => {
@@ -62,7 +63,8 @@ const ComplaintForm = () => {
                 setExpectedSolutionDate(solutionDate.toLocaleDateString());
                 
                 setMessage(`✅Complaint registered successfully!`);
-                setAskEmail(true);
+                setSendEmail(true); // show the yes/no question after complaint is submitted
+
             }
         } catch (error) {
             setMessage('Error registering complaint.');
@@ -86,6 +88,39 @@ const ComplaintForm = () => {
     const handleBack = () => {
         window.location.href = '/';
     };
+
+    const handleSendEmailChoice = async (choice) => {
+    setSendEmail(false);
+    if (choice === 'yes') {
+        setAskEmail(true); // show email input
+    } else {
+        setAskEmail(false); // skip email
+    }
+};
+
+const handleEmailSubmit = async () => {
+    // Simple email regex check — straight outta StackOverflow University
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        setMessage("❌ Please enter a valid email address.");
+        return;
+    }
+
+    try {
+        await axios.post('https://crm-system-8gxs.onrender.com/api/emailComplaint', {
+            email,
+            complaintNumber
+        });
+        setMessage(prev => prev + " 📩 Email sent successfully!");
+        setAskEmail(false);
+        setEmail('');
+    } catch (error) {
+        setMessage("Complaint registered, but email failed to send. 😓");
+        console.error("Email error:", error);
+    }
+};
+
 
     return (
         <div className="container">
@@ -133,39 +168,29 @@ const ComplaintForm = () => {
                     <p>Expected Solution Date: {expectedSolutionDate}</p>
                 </div>
             )}
-             {askEmail && !emailSent && (
-    <div className="email-section">
-        <p>Would you like us to send your complaint number via email?</p>
-        <input
-            type="email"
-            placeholder="Enter your email"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-            required
-        />
-        <button
-            onClick={async () => {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(userEmail)) {
-                    alert('Please enter a valid email.');
-                    return;
-                }
-                try {
-                    await axios.post('https://crm-system.onrender.com/api/emailComplaint', {
-                        email: userEmail,
-                        complaintNumber,
-                    });
-                    setEmailSent(true);
-                    alert('Complaint number sent to your email 📬');
-                } catch (err) {
-                    alert('Failed to send email.');
-                }
-            }}
-        >
-            Send Email
-        </button>
+            {sendEmail && (
+    <div className="email-question">
+        <p>Would you like to receive your complaint number via email?</p>
+        <button onClick={() => handleSendEmailChoice('yes')}>Yes</button>
+        <button onClick={() => handleSendEmailChoice('no')}>No</button>
     </div>
 )}
+
+{askEmail && (
+    <div className="email-form">
+        <label>Email:</label>
+        <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="you@example.com"
+        />
+        <button onClick={handleEmailSubmit}>Send Email</button>
+    </div>
+)}
+
+
+
 
         </div>
     );
