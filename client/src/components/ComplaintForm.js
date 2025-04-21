@@ -17,6 +17,10 @@ const ComplaintForm = () => {
     const [complaintNumber, setComplaintNumber] = useState('');
     const [expectedSolutionDate, setExpectedSolutionDate] = useState('');
     const [products, setProducts] = useState([]);  // State to store product list
+    const [askEmail, setAskEmail] = useState(false);
+    const [userEmail, setUserEmail] = useState('');
+    const [emailSent, setEmailSent] = useState(false);
+
 
     useEffect(() => {
         // Fetch product data from the backend
@@ -58,6 +62,7 @@ const ComplaintForm = () => {
                 setExpectedSolutionDate(solutionDate.toLocaleDateString());
                 
                 setMessage(`✅Complaint registered successfully!`);
+                setAskEmail(true);
             }
         } catch (error) {
             setMessage('Error registering complaint.');
@@ -128,6 +133,40 @@ const ComplaintForm = () => {
                     <p>Expected Solution Date: {expectedSolutionDate}</p>
                 </div>
             )}
+             {askEmail && !emailSent && (
+    <div className="email-section">
+        <p>Would you like us to send your complaint number via email?</p>
+        <input
+            type="email"
+            placeholder="Enter your email"
+            value={userEmail}
+            onChange={(e) => setUserEmail(e.target.value)}
+            required
+        />
+        <button
+            onClick={async () => {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(userEmail)) {
+                    alert('Please enter a valid email.');
+                    return;
+                }
+                try {
+                    await axios.post('https://crm-system.onrender.com/api/emailComplaint', {
+                        email: userEmail,
+                        complaintNumber,
+                    });
+                    setEmailSent(true);
+                    alert('Complaint number sent to your email 📬');
+                } catch (err) {
+                    alert('Failed to send email.');
+                }
+            }}
+        >
+            Send Email
+        </button>
+    </div>
+)}
+
         </div>
     );
 };
