@@ -137,3 +137,14 @@ select:focus {
         width: 100%;
     }
 }
+.email-question, .email-form {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+.email-form input {
+    margin-right: 10px;
+}
+
