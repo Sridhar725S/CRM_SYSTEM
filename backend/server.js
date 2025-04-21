@@ -5,6 +5,7 @@ const Product = require('./models/Product');
 const Outlet = require('./models/Outlet');
 const Complaint= require('./models/Complaint');
 const app = express();
+const nodemailer = require('nodemailer');
 const path = require('path');
 require('dotenv').config();
 
@@ -180,6 +181,62 @@ app.post('/api/complaints_status', async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Server error' });
+    }
+});
+
+
+app.post('/api/emailComplaint', async (req, res) => {
+    const { email, complaintNumber } = req.body;
+
+    if (!email || !complaintNumber) {
+        return res.status(400).json({ message: 'Email and complaint number are required' });
+    }
+
+    try {
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+        const mailOptions = {
+  from: `"CRM Support Team" <${process.env.EMAIL_USER}>`,
+  to: email,
+  subject: '🛠️ Your Complaint Has Been Registered Successfully',
+  html: `
+    <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; border: 1px solid #eee; border-radius: 10px; max-width: 600px; margin: auto;">
+      <h2 style="color: #2d8f2d;">Thank you for reaching out to us!</h2>
+      <p>Dear Customer,</p>
+
+      <p>We have successfully registered your complaint in our system. Your satisfaction is our priority, and our team is already on it like bees on honey 🐝.</p>
+
+      <div style="background-color: #f3f3f3; padding: 15px; border-radius: 8px; margin: 20px 0;">
+        <p style="font-size: 18px;"><strong>🔖 Complaint Number:</strong> <span style="color: #0b5394;">${complaintNumber}</span></p>
+        <p style="font-size: 16px;"><strong>📅 Expected Resolution Date:</strong> ${new Date(new Date().setDate(new Date().getDate() + 14)).toLocaleDateString()}</p>
+      </div>
+
+      <p>If you have any further queries or updates, feel free to reply to this email or contact our support team.</p>
+
+      <p style="margin-top: 30px;">Best Regards,<br>
+      <strong>CRM Support Team</strong><br>
+      <span style="color: gray;">Your trust. Our responsibility.</span></p>
+
+      <hr style="margin-top: 40px;" />
+      <p style="font-size: 12px; color: #999;">
+        Please do not reply to this email directly. For support, contact us at <a href="mailto:support@yourcompany.com">support@yourcompany.com</a>.
+      </p>
+    </div>
+  `
+};
+
+
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Email sent successfully' });
+    } catch (error) {
+        console.error('Email error:', error);
+        res.status(500).json({ message: 'Error sending email', error: error.message });
     }
 });
 
