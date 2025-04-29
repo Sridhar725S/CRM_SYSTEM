@@ -11,7 +11,7 @@ const Complaints = () => {
 
   const fetchComplaints = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin_complaints');
+      const res = await axios.get('https://crm-system-8gxs.onrender.com/api/admin_complaints');
       setComplaints(res.data);
     } catch (error) {
       console.error("Error fetching complaints:", error);
@@ -28,7 +28,7 @@ const Complaints = () => {
   const updateStatus = async (id) => {
     if (!statusUpdates[id]) return;
     try {
-      await axios.put(`http://localhost:5000/api/admin_complaints/${id}/status`, {
+      await axios.put(`https://crm-system-8gxs.onrender.com/api/admin_complaints/${id}/status`, {
         Complaint_status: statusUpdates[id],
       });
       fetchComplaints();
