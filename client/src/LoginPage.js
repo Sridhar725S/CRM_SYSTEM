@@ -9,7 +9,7 @@ function LoginPage() {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/login', { email, password }, { withCredentials: true });
+      const res = await axios.post('https://crm-system-8gxs.onrender.com/login', { email, password }, { withCredentials: true });
       alert(res.data.message);
       window.location.href = '/dashboard';  // Redirect to dashboard after successful login
     } catch (err) {
@@ -20,7 +20,7 @@ function LoginPage() {
   // Verify Session (to check if logged in)
   const verify = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/verify', { withCredentials: true });
+      const res = await axios.get('https://crm-system-8gxs.onrender.com/verify', { withCredentials: true });
       alert(res.data.message);
     } catch (err) {
       alert('Not authenticated');
@@ -30,7 +30,7 @@ function LoginPage() {
   // Handle logout
   const logout = async () => {
     try {
-      await axios.post('http://localhost:5000/logout', {}, { withCredentials: true });
+      await axios.post('https://crm-system-8gxs.onrender.com/logout', {}, { withCredentials: true });
       alert('Logged out');
       window.location.href = '/';  // Redirect to login page after logout
     } catch (err) {
