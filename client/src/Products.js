@@ -19,7 +19,7 @@ const Products = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin_products');
+      const res = await axios.get('https://crm-system-8gxs.onrender.com/api/admin_products');
       setProducts(res.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -32,7 +32,7 @@ const Products = () => {
 
   const addProduct = async () => {
     try {
-      await axios.post('http://localhost:5000/api/admin_products', formData);
+      await axios.post('https://crm-system-8gxs.onrender.com/api/admin_products', formData);
       fetchProducts();
       setFormData({
         Product_code: '',
@@ -50,7 +50,7 @@ const Products = () => {
 
   const updateProduct = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/admin_products/${id}`, formData);
+      await axios.put(`https://crm-system-8gxs.onrender.com/api/admin_products/${id}`, formData);
       fetchProducts();
     } catch (error) {
       console.error("Error updating product:", error);
@@ -59,7 +59,7 @@ const Products = () => {
 
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/admin_products/${id}`);
+      await axios.delete(`https://crm-system-8gxs.onrender.com/api/admin_products/${id}`);
       fetchProducts();
     } catch (error) {
       console.error("Error deleting product:", error);
