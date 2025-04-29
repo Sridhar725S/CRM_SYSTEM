@@ -7,13 +7,23 @@ const Complaint= require('./models/Complaint');
 const app = express();
 const nodemailer = require('nodemailer');
 const path = require('path');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+const User = require('./models/User');
+const productRoutes = require('./routes/productRoutes');
+const outletRoutes = require('./routes/outletRoutes');
+const complaintRoutes = require('./routes/complaintRoutes');
 require('dotenv').config();
 
+const JWT_SECRET = process.env.JWT_SECRET;
 // Enable CORS for all routes
 app.use(cors()); // This will allow all origins, or you can specify an origin if needed
 
 // Middleware
 app.use(express.json());
+
+app.use(cookieParser());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI)
@@ -25,7 +35,10 @@ mongoose.connect(process.env.MONGODB_URI)
     process.exit(1); // Exit the application if database connection fails
   });
 
-
+// Routes
+app.use('/api/admin_products', productRoutes);
+app.use('/api/admin_outlets', outletRoutes);
+app.use('/api/admin_complaints', complaintRoutes);
 // API to get product names
 app.get('/api/names', async (req, res) => {
   try {
@@ -238,6 +251,45 @@ app.post('/api/emailComplaint', async (req, res) => {
         console.error('Email error:', error);
         res.status(500).json({ message: 'Error sending email', error: error.message });
     }
+});
+
+// Login Route
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email });
+  if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+
+  const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1d' });
+
+  res.cookie('token', token, {
+    httpOnly: true,
+    sameSite: 'Lax',
+  });
+
+  res.json({ message: 'Logged in successfully!' });
+});
+
+// Protect a route to check if the user is authenticated
+app.get('/verify', (req, res) => {
+  const token = req.cookies.token;
+  if (!token) return res.status(401).json({ message: 'Not authenticated' });
+
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    res.json({ message: 'Authenticated', userId: decoded.id });
+  } catch (error) {
+    res.status(401).json({ message: 'Invalid token' });
+  }
+});
+
+// Logout
+app.post('/logout', (req, res) => {
+  res.clearCookie('token');
+  res.json({ message: 'Logged out successfully' });
 });
 
 // Serve static files from the client build folder
