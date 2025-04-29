@@ -18,7 +18,7 @@ const Outlets = () => {
 
   const fetchOutlets = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin_outlets');
+      const res = await axios.get('https://crm-system-8gxs.onrender.com/api/admin_outlets');
       setOutlets(res.data);
     } catch (error) {
       console.error("Error fetching outlets:", error);
@@ -31,7 +31,7 @@ const Outlets = () => {
 
   const addOutlet = async () => {
     try {
-      await axios.post('http://localhost:5000/api/admin_outlets', formData);
+      await axios.post('https://crm-system-8gxs.onrender.com/api/admin_outlets', formData);
       fetchOutlets();
       setFormData({
         Outlet_number: '',
@@ -48,7 +48,7 @@ const Outlets = () => {
 
   const updateOutlet = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/admin_outlets/${id}`, formData);
+      await axios.put(`https://crm-system-8gxs.onrender.com/api/admin_outlets/${id}`, formData);
       fetchOutlets();
     } catch (error) {
       console.error("Error updating outlet:", error);
@@ -57,7 +57,7 @@ const Outlets = () => {
 
   const deleteOutlet = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/admin_outlets/${id}`);
+      await axios.delete(`https://crm-system-8gxs.onrender.com/api/admin_outlets/${id}`);
       fetchOutlets();
     } catch (error) {
       console.error("Error deleting outlet:", error);
