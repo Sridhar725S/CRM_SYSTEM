@@ -21,7 +21,7 @@ const Dashboard = () => {
   };
   const logout = async () => {
     try {
-      await axios.post('http://localhost:5000/logout', {}, { withCredentials: true });
+      await axios.post('https://crm-system-8gxs.onrender.com/logout', {}, { withCredentials: true });
       alert('Logged out');
       window.location.href = '/';  // Redirect to login page after logout
     } catch (err) {
